@@ -1,6 +1,4 @@
 # GatorTS
-
-# GatorTS
 Gator
 Requirements
 
@@ -16,4 +14,3 @@ npm run start [args]
 Or: npx tsx ./src/index.ts [args]
 
 Config
-
