@@ -1,11 +1,20 @@
 import {
-  type CommandsRegistry,
+  CommandsRegistry,
   registerCommand,
   runCommand,
 } from "./commands/commands";
-import { handlerLogin } from "./commands/users";
+import {
+  handlerListUsers,
+  handlerLogin,
+  handlerRegister,
+} from "./commands/users";
+import { handlerReset } from "./commands/reset";
+import { handlerAgg } from "./commands/aggregate";
+import { handlerAddFeed, handlerListFeeds } from "./commands/feeds";
+import { handlerFollow, handlerListFeedFollows, handlerUnfollow } from "./commands/feed-follows";
+import { middlewareLoggedIn } from "./middleware";
 
-function main() {
+async function main() {
   const args = process.argv.slice(2);
 
   if (args.length < 1) {
@@ -18,9 +27,34 @@ function main() {
   const commandsRegistry: CommandsRegistry = {};
 
   registerCommand(commandsRegistry, "login", handlerLogin);
+  registerCommand(commandsRegistry, "register", handlerRegister);
+  registerCommand(commandsRegistry, "reset", handlerReset);
+  registerCommand(commandsRegistry, "users", handlerListUsers);
+  registerCommand(commandsRegistry, "agg", handlerAgg);
+  registerCommand(
+    commandsRegistry,
+    "addfeed",
+    middlewareLoggedIn(handlerAddFeed),
+  );
+  registerCommand(commandsRegistry, "feeds", handlerListFeeds);
+  registerCommand(
+    commandsRegistry,
+    "follow",
+    middlewareLoggedIn(handlerFollow),
+  );
+  registerCommand(
+    commandsRegistry,
+    "following",
+    middlewareLoggedIn(handlerListFeedFollows),
+  );
+  registerCommand(
+  commandsRegistry,
+  "unfollow",
+  middlewareLoggedIn(handlerUnfollow),
+);
 
   try {
-    runCommand(commandsRegistry, cmdName, ...cmdArgs);
+    await runCommand(commandsRegistry, cmdName, ...cmdArgs);
   } catch (err) {
     if (err instanceof Error) {
       console.error(`Error running command ${cmdName}: ${err.message}`);
@@ -29,6 +63,7 @@ function main() {
     }
     process.exit(1);
   }
+  process.exit(0);
 }
 
 main();

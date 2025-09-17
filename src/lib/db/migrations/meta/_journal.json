@@ -8,6 +8,34 @@
       "when": 1757797654340,
       "tag": "0000_stale_captain_britain",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1757867729753,
+      "tag": "0001_jittery_lockheed",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1757891894645,
+      "tag": "0002_cold_inhumans",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1758127986116,
+      "tag": "0003_long_sasquatch",
+      "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1758128619358,
+      "tag": "0004_thick_rogue",
+      "breakpoints": true
     }
   ]
 }
